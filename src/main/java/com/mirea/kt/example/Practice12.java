@@ -1,9 +1,6 @@
 package com.mirea.kt.example;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.Scanner;
 
 public class Practice12 {
@@ -24,23 +21,5 @@ public class Practice12 {
         }
         Thread deserializationThread = new Thread(new DeserializationTask(filePath));
         deserializationThread.start();
-    }
-    
-    static class DeserializationTask implements Runnable {
-        private String filePath;
-
-        public DeserializationTask(String filePath) {
-            this.filePath = filePath;
-        }
-
-        @Override
-        public void run() {
-            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
-                Message message = (Message) ois.readObject();
-                System.out.println(message.toString());                
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
